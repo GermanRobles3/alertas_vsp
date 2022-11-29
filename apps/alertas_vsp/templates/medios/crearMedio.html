@@ -1,0 +1,241 @@
+{% extends "../plantilla_home.html" %}
+{% block title %} Nueva Noticia{% endblock %}
+{% block body %}
+<div class="row">
+   <!--<div class="col-md-4 offset-md-4">-->
+        <h3 class="col-md-4 offset-md-4 font-weight-bold">NUEVA NOTICIA</h3> 
+        <form action="/creacionMedio/" method="POST">{% csrf_token %}
+        
+            <div class="card w-100 float-left mb-3 shadow">
+                <div class="card-body p-0">
+                    
+                    <!--PROFESIONAL-->
+                    <div class="w-25 form-group float-left p-1 m-0">
+                        <label  for="txtProfesional">Profesional</label>
+                        <input type="text" id="txtProfesional" name="txtProfesional" class="form-control" 
+                        value="{{ user.first_name }} {{ user.last_name }}"placeholder="Profesional" minlength="10" maxlength="50" 
+                        readonly required/>
+                    </div>
+
+                    <!--FECHA DE INGRESO-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="txtFechaIngreso">Fecha de Ingreso</label>
+                        <input type="date" id="txtFechaIngreso" onChange="calcularSemana(this);" 
+                        name="txtFechaIngreso"  class="form-control" 
+                        value="{{ now|date:'Y-m-d' }}" placeholder="Fecha de Ingreso" readonly required/>
+                    </div>
+
+                    <!--SEMANA-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="txtSemana">Semana</label>
+                        <input type="text" id="txtSemana" onChange="calcularPeriodo(this);" name="txtSemana"  class="form-control" 
+                        placeholder="Semana" readonly required/>
+                    </div>
+
+                    <!--PERIODO-->
+                    <div class="w-25 form-group float-left p-1">
+                       
+                        <label  for="txtPeriodo">Periodo</label>
+                        <input type="text" id="txtPeriodo" onKeyUp="calcularPeriodo(this);" name="txtPeriodo" class="form-control" 
+                        placeholder="Periodo" readonly required/>
+                    </div>
+
+                    
+
+                  
+
+                    
+                </div>
+            </div>
+            <h6>NOTICIA</h6>
+
+            
+
+            <div class="card w-100 float-left mb-3 shadow">
+                <div class="card-body"> 
+                    <!--Titulo de la noticia-->
+                    <div class="w-75 form-group float-left p-1">
+                        <label  for="txtTituloNoticia">Titulo de la noticia</label>
+                        <input type="text" id="txtTituloNoticia" name="txtTituloNoticia" class="form-control" 
+                        placeholder="Titulo de la noticia" minlength="10" maxlength="1000" required/>
+                    </div>
+                    <!--FECHA DE OCURRENCIA-->
+                   <div class="w-25 form-group float-left p-1">
+                    <label  for="txtFechaOcurrencia">Fecha de ocurrencia</label>
+                    <input type="date" id="txtFechaOcurrencia" name="txtFechaOcurrencia"  class="form-control" 
+                    placeholder="Fecha de Ocurrencia" required/>
+                </div>
+                       
+                                               
+                     <!--RESUMEN DE LA NOTICIA-->
+                     <div class="w-100 form-group float-left">
+                        <label  for="txtResumenNoticia">Resumen de la noticia</label>
+                        <textarea id="txtResumenNoticia" name="txtResumenNoticia" class="form-control" rows="4" cols="50"
+                        placeholder="Resumen de la noticia" minlength="50" maxlength="1000" resize-none required>
+                        </textarea>
+                    </div>
+                    <!--FUENTE-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="optFuenteNotificacion">Fuente:</label>
+                        <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optFuenteNotificacion" name="optFuenteNotificacion">
+                            <option value="CENTRO NACIONAL DE ENLACE">Centro nacional de enlace</option>
+                            <option value="COMUNIDAD">Comunidad</option>
+                            <option value="EXTERNAS AL PROGRAMA DE VIGILANCIA">Externas al programa de vigilancia</option>
+                            <option value="EXTERNAS A SALUD PUBLICA">Externa a salud pública</option>
+                            <option value="INSTITUTO NACIONAL DE SALUD">Instituto nacional de salud</option>
+                            <option value="LABORATORIO DE SALUD PUBLICA DEPARTAMENTAL">Laboratorio de salud pública departamental</option>
+                            <option value="MONITOREO DE MEDIOS">Monitoreo de medios</option>
+                            <option value="SECRETARIA DE SALUD MUNICIPAL">Secretaria de salud municipal</option>
+                            <option value="SIVIGILA">Sivigila</option>
+                        </select>
+                    </div> 
+                    <!--Enlace de la noticia-->
+                    <div class="w-75 form-group float-left p-1">
+                        <label  for="txtEnlaceNoticia">Enlace de la noticia</label>
+                        <input type="text" id="txtEnlaceNoticia" name="txtEnlaceNoticia" class="form-control" 
+                        placeholder="Enlace de la noticia" minlength="10" maxlength="100" required/>
+                    </div> 
+                </div>
+            </div>
+
+            <div class="card w-100 float-left mb-3 shadow">
+                <div class="card-body">         
+
+                    <!--Evento-->  
+                   <div class="w-25 form-group float-left p-1">
+                    <label  for="optEvento">Evento:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optEvento" name="optEvento">
+                        {% for evento in eventos %}
+                        <option value="{{evento.nombre_evento}}">{{evento.nombre_evento}}</option>
+                        {% endfor %}
+                    </select>
+                </div> 
+
+                 <!--GRUPO FUNCIONAL-->
+                <div class="w-25 form-group float-left p-1">
+                    <label  for="optGrupoFuncional">Grupo Funcional:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optGrupoFuncional" name="optGrupoFuncional">
+                       
+                        <option value="LABORATORIO DE SALUD PUBLICA DEPARTAMENTAL">Laboratorio de salud pública departamental</option>
+                        <option value="PAI">Programa ampliado de inmunizaciones</option>
+                        <option value="PROGRAMA IRA">Programa IRA</option>
+                        <option value="PROGRAMA MATERNIDAD SEGURA">Programa Maternidad Segura</option>
+                        <option value="PROGRAMA SALUD AMBIENTAL">Programa Salud Ambiental</option>
+                        <option value="PROGRAMA VECTORES">Programa Vectores</option>
+                        <option value="PROGRAMA ZOONOSIS">Programa Zoonosis</option>
+                        <option value="VIGILANCIA EN SALUD PUBLICA">Vigilancia en salud pública</option>
+                    </select>
+                </div> 
+
+
+
+                    <!--Departamento de ocurrencia-->
+                   <div class="w-25 form-group float-left p-1">
+                        <label  for="optDeptoOcurrencia">Departamento de Ocurrencia:</label>
+                        <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optDeptoOcurrencia" name="optDeptoOcurrencia">
+                            <option value="SUCRE">SUCRE</option>
+                            <option value="CORDOBA">CORDOBA</option>
+                            <option value="BOLIVAR">BOLIVAR</option>
+                        </select>
+                    </div>                 
+                    <!--Municipio de ocurrencia-->
+                   <div class="w-25 form-group float-left p-1">
+                        <label  for="optMunOcurrencia">Municipio de Ocurrencia:</label>
+                        <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optMunOcurrencia" name="optMunOcurrencia">
+                    
+                            <option value="BUENAVISTA">BUENAVISTA</option>
+                            <option value="BETULIA">BETULIA</option>
+                            <option value="CAIMITO">CAIMITO</option>
+                            <option value="CHALAN">CHALAN</option>
+                            <option value="COLOSO">COLOSO</option>
+                            <option value="COROZAL">COROZAL</option>
+                            <option value="COVEÑAS">COVEÑAS</option>
+                            <option value="EL ROBLE">EL ROBLE</option>
+                            <option value="GALERAS">GALERAS</option>
+                            <option value="GUARANDA">GUARANDA</option>
+                            <option value="LA UNION">LA UNION</option>
+                            <option value="LOS PALMITOS">LOS PALMITOS</option>
+                            <option value="MAJAGUAL">MAJAGUAL</option>
+                            <option value="MORROA">MORROA</option>
+                            <option value="OVEJAS">OVEJAS</option>
+                            <option value="PALMITO">PALMITO</option>
+                            <option value="SAMPUES">SAMPUES</option>
+                            <option value="SAN BENITO ABAD">SAN BENITO ABAD</option>
+                            <option value="SAN MARCOS">SAN MARCOS</option>
+                            <option value="SAN ONOFRE">SAN ONOFRE</option>
+                            <option value="SAN PEDRO">SAN PEDRO</option>
+                            <option value="SINCE">SINCE</option>
+                            <option value="SINCELEJO">SINCELEJO</option>
+                            <option value="SUCRE">SUCRE</option>
+                            <option value="TOLU">TOLU</option>
+                            <option value="TOLUVIEJO">TOLUVIEJO</option>
+                        </select>
+                    </div>
+                    <!--POBLACION AFECTADA-->
+                   <div class="w-25 form-group float-left p-1">
+                    <label  for="optPoblacionAfectada">Población Afectada:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optPoblacionAfectada" name="optPoblacionAfectada">
+                    
+                        <option value="CENTRO DE PROTECCION">Centro de protección</option>
+                        <option value="COMUNIDAD GENERAL">Comunidad en general</option>
+                        <option value="FM FUERZAS MILITARES">FM-Fuerzas Militares</option>
+                        <option value="IPS INSTITUCIONES PRESTADORAS DE SALUD">IPS-Instituciones Prestadoras de Salud</option>
+                        <option value="MIN POBLACION MINERA">MIN-Población Minera</option>
+                        <option value="PE POBLACION ESCOLARIZADA">PE-Población Escolarizada</option>
+                        <option value="PI POBLACION INDIGENA">PI- Polación Indigena</option>
+                        <option value="PM POBLACION MIGRANTE">PM-Población Migrante</option>
+                        <option value="PN POLICIA">PN-Policia</option>
+                        <option value="PPL POBLACION PRIVADA DE LA LIBERTAD">PPL- Población Privada de la libertad</option>
+                        <option value="OTROS">Otros</option>
+                    </select>
+                </div>
+
+                <!--CRITERIO DE RIESGO-->
+                <div class="w-25 form-group float-left p-1">
+                    <label  for="optCriterioRiesgo">Criterio de riesgo:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optCriterioRiesgo" name="optCriterioRiesgo">
+                      
+                        <option value="GOBERNANZA">Gobernanza</option>
+                            <option value="POBLACION INTRAHOSPITALARIA">Población Intrahospitalaria</option>
+                            <option value="POBLACIONES ESPECIALES">Poblaciones especiales</option>
+                            <option value="REGLAMENTO SANITARIO INTERNACIONAL - EISP">Reglamento Sanitario Internacional - EISP</option>
+                            <option value="SITUACION CON AFECTACION AL PERSONAL SANITARIO">Situacion con afectación al personal sanitario</option>
+                            <option value="SITUACION CON MUERTES">Situacion con muertes</option>
+                            <option value="SITUACION CON RIESGO REPUTACIONAL">Situación con riesgo reputacional</option>
+                    </select>
+                </div>
+
+                <!--Confirmación-->
+                <div class="w-25 form-group float-left p-1">
+                    <label  for="optConfirmacion">Confirmación:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optConfirmacion" name="optConfirmacion">
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+            <h6>SEGUIMIENTO</h6>
+            <div class="card w-100 float-left mb-3 shadow">
+                <div class="card-body"> 
+                     <!--SEGUIMIENTO-->
+                     <div class="w-100 form-group float-left">
+                        <label  for="txtSeguimiento">Seguimiento:</label>
+                        <textarea id="txtSeguimiento" name="txtSeguimiento" class="form-control" rows="4" cols="50"
+                        placeholder="Seguimiento" minlength="10" maxlength="200" resize-none required>
+                        </textarea>
+                    </div>                   
+                </div>
+            </div>
+            
+             <!--Boton de envio-->
+            <div class="col-md-4 offset-md-4 w-25 form-group text-center">
+                <button type="submit" class="btn btn-success btn-block text-white">GUARDAR</button>
+            </div>         
+        </form>
+    <!--</div>-->         
+</div>
+
+{% endblock %}

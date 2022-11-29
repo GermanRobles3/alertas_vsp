@@ -1,0 +1,51 @@
+{% extends "../plantilla_home.html" %}
+
+
+{% block body %}
+    <div class="row">
+        <!--AQUI COMIENZA-->
+
+     
+
+        <!--AQUI TERMINA-->   
+        <!--<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">-->
+     
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h3>LISTADO DE BROTES 
+                <a href="crearBrote/" class="btn btn-info">Nuevo Brote</a>
+                <a href="{% url 'reporteBrotes' %}" class="btn btn-success"> XLS</a>
+                
+            </h3>
+            
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th id="txtprueba">EVENTO</th>
+                            <th>MUNICIPIO</th>
+                            <th>SEMANA</th>
+                            <th>FECHA</th>
+                            <th colspan="2">OPCIONES</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for brote in brotes %}
+                            <tr>
+                                <td>{{brote.evento}}</td>
+                                <td>{{brote.mun_ocurrencia}}</td>
+                                <td>{{brote.semana}}</td>
+                                <td>{{brote.fecha_ingreso}}</td>
+                                <td><a href="editarBrote/{{brote.id}}" class="btn btn-info">Editar</a></td>
+                                <td><a href="eliminarBrote/{{brote.id}}" class="btn btn-danger">Eliminar</a></td>
+                            </tr>                        
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock%}

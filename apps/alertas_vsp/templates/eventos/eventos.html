@@ -1,0 +1,66 @@
+{% extends "../plantilla_home.html" %}
+
+
+{% block body %}
+    <div class="row">
+    <!-- <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">-->
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <h3>GESTION DE EVENTOS</h3>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/crearEvento/" method="POST">{% csrf_token %}
+
+                        <!--CODIGO EVENTO-->
+                        <div class="form-group">
+                            <label for="txtCodigoEvento">CODIGO:</label>
+                            <input type="number" id="txtCodigoEvento" name="txtCodigoEvento" class="form-control" 
+                            placeholder="Código" minlength="6" maxlength="6" required/>
+                        </div>
+                        <!--NOMBRE EVENTO-->
+                        <div class="form-group">
+                            <label for="txtNombreEvento">EVENTO:</label>
+                            <input type="text" id="txtNombreEvento" name="txtNombreEvento" class="form-control" 
+                            placeholder="Evento" maxlength="250" required/>
+                        </div>
+                        <!--Boton de envio-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block text-white">GUARDAR</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">-->
+        <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+            <h3>LISTADO DE EVENTOS</h3>
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>CODIGO</th>
+                            <th>EVENTO</th>
+                            <th colspan="2">OPCIONES</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for evento in eventos %}
+                            <tr>
+                                <td>{{evento.codigo_evento}}</td>
+                                <td>{{evento.nombre_evento}}</td>
+                                <!--<td><a href="editarBrote/{{brote.codigo}}" class="btn btn-info">Editar</a></td>
+                                <td><a href="eliminarBrote/{{brote.codigo}}" class="btn btn-danger">Eliminar</a></td>
+                                -->
+                            </tr>                        
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock%}

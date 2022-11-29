@@ -1,0 +1,419 @@
+{% extends "../plantilla_home.html" %}
+{% block title %} Edición de Brote{% endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4"> 
+        <h3>EDICION DE BROTE</h3>
+        <div class="card">
+            <div class="card-body">
+                <form action="/edicionBrote/" method="POST">
+                    {% csrf_token %}
+                    <!--
+                    CODIGO
+                    <div class="form-group">
+                        <input type="number" id="txtCodigo" name="txtCodigo" value="{{brote.codigo}}" class="form-control" 
+                        placeholder="Código" minlength="6" maxlength="6" readonly required/>
+                    </div>
+                    -->
+                    
+
+                    <!--PROFESIONAL-->
+                    <div class="form-group">
+                        <label for="txtProfesional">Profesional</label>
+                        <input type="text" id="txtProfesional" name="txtProfesional" value="{{brote.profesional}}" class="form-control" 
+                        placeholder="Profesional" minlength="10" maxlength="50" readonly required/>
+                    </div>
+
+                    <!--FECHA DE INGRESO-->
+                    <div class="form-group">
+                        <label for="txtFechaIngreso">Fecha de Ingreso</label>
+                        <input type="date" id="txtFechaIngreso" name="txtFechaIngreso" value="{{brote.fecha_ingreso|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de Ingreso" required/>
+                    </div>
+
+                    <!--SEMANA-->
+                    <div class="form-group">
+                        <label for="txtSemana">Semana</label>
+                        <input type="number" id="txtSemana" name="txtSemana" value="{{brote.semana}}" class="form-control" 
+                        placeholder="Semana" required/>
+                    </div>
+
+                    <!--PERIODO-->
+                    <div class="form-group">
+                        <label for="txtPeriodo">Periodo</label>
+                        <input type="number" id="txtPeriodo" name="txtPeriodo" value="{{brote.periodo}}" class="form-control" 
+                        placeholder="Periodo" required/>
+                    </div>
+
+                    <!--FECHA DE OCURRENCIA-->
+                    <div class="form-group">
+                        <label for="txtFechaOcurrencia">Fecha de ocurrencia</label>
+                        <input type="date" id="txtFechaOcurrencia" name="txtFechaOcurrencia" value="{{brote.fecha_ocurrencia|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de Ocurrencia" required/>
+                    </div>
+                    <!--FECHA DE NOTIFICACION-->
+                    <div class="form-group">
+                        <label for="txtFechaNotificacion">Fecha de Notificación</label>
+                        <input type="date" id="txtFechaNotificacion" name="txtFechaNotificacion" value="{{brote.fecha_notificacion|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de Notificacion" required/>
+                    </div>
+                    <!--FUENTE DE NOTIFICACION-->
+                    <div class="form-group">
+                        <label for="optFuenteNotificacion">Fuente de notificiación:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optFuenteNotificacion" name="optFuenteNotificacion">
+                            <option value={{brote.fuente_notificacion}}>{{brote.fuente_notificacion}}</option>
+                            <option value="CENTRO NACIONAL DE ENLACE">Centro nacional de enlace</option>
+                            <option value="COMUNIDAD">Comunidad</option>
+                            <option value="EXTERNAS AL PROGRAMA DE VIGILANCIA">Externas al programa de vigilancia</option>
+                            <option value="INSTITUTO NACIONAL DE SALUD">Instituto nacional de salud</option>
+                            <option value="LABORATORIO DE SALUD PUBLICA DEPARTAMENTAL">Laboratorio de salud pública departamental</option>
+                            <option value="MONITOREO DE MEDIOS">Monitoreo de medios</option>
+                            <option value="SECRETARIA DE SALUD MUNICIPAL">Secretaria de salud municipal</option>
+                            <option value="SIVIGILA">Sivigila</option>
+                        </select>
+                    </div>         
+
+                    <!--Departamento de ocurrencia-->
+                    <div class="form-group">
+                        <label for="optDeptoOcurrencia">Departamento de Ocurrencia:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optDeptoOcurrencia" name="optDeptoOcurrencia" value="{{brote.depto_ocurrencia}}">
+                            <option value={{brote.depto_ocurrencia}}>{{brote.depto_ocurrencia}}</option>
+                            <option value="SUCRE">SUCRE</option>
+                            <option value="CORDOBA">CORDOBA</option>
+                            <option value="BOLIVAR">BOLIVAR</option>
+                        </select>
+                    </div>                 
+                    <!--Municipio de ocurrencia-->
+                    <div class="form-group">
+                        <label for="optMunOcurrencia">Municipio de Ocurrencia:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optMunOcurrencia" name="optMunOcurrencia" value="{{brote.mun_ocurrencia}}">
+                            <option value={{brote.mun_ocurrencia}}>{{brote.mun_ocurrencia}}</option>
+                            <option value="BUENAVISTA">BUENAVISTA</option>
+                            <option value="BETULIA">BETULIA</option>
+                            <option value="CAIMITO">CAIMITO</option>
+                            <option value="CHALAN">CHALAN</option>
+                            <option value="COLOSO">COLOSO</option>
+                            <option value="COROZAL">COROZAL</option>
+                            <option value="COVEÑAS">COVEÑAS</option>
+                            <option value="EL ROBLE">EL ROBLE</option>
+                            <option value="GALERAS">GALERAS</option>
+                            <option value="GUARANDA">GUARANDA</option>
+                            <option value="LA UNION">LA UNION</option>
+                            <option value="LOS PALMITOS">LOS PALMITOS</option>
+                            <option value="MAJAGUAL">MAJAGUAL</option>
+                            <option value="MORROA">MORROA</option>
+                            <option value="OVEJAS">OVEJAS</option>
+                            <option value="PALMITO">PALMITO</option>
+                            <option value="SAMPUES">SAMPUES</option>
+                            <option value="SAN BENITO ABAD">SAN BENITO ABAD</option>
+                            <option value="SAN MARCOS">SAN MARCOS</option>
+                            <option value="SAN ONOFRE">SAN ONOFRE</option>
+                            <option value="SAN PEDRO">SAN PEDRO</option>
+                            <option value="SINCE">SINCE</option>
+                            <option value="SINCELEJO">SINCELEJO</option>
+                            <option value="SUCRE">SUCRE</option>
+                            <option value="TOLU">TOLU</option>
+                            <option value="TOLUVIEJO">TOLUVIEJO</option>
+                        </select>
+                    </div>    
+
+                    <!--Lugar de ocurrencia-->
+                    <div class="form-group">
+                        <label for="txtLugarOcurrencia">Lugar de Ocurrencia</label>
+                        <input type="text" id="txtLugarOcurrencia" name="txtLugarOcurrencia" value="{{brote.lugar_ocurrencia}}"class="form-control" 
+                        placeholder="Lugar de Ocurrencia" minlength="10" maxlength="50" required/>
+                    </div>
+                    <!--Direccion-->
+                    <div class="form-group">
+                        <label for="txtDireccion">Dirección</label>
+                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{brote.direccion}}" class="form-control" 
+                        placeholder="Dirección" minlength="10" maxlength="50" required/>
+                    </div>
+
+                    <!--SITUACION REPORTADA-->
+                    <div class="form-group">
+                        <label for="optSituacionReportada">Situación reportada:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optSituacionReportada" name="optSituacionReportada" value="{{brote.situacion_reportada}}">
+                            <option value={{brote.situacion_reportada}}>{{brote.situacion_reportada}}</option>
+                            <option value="ALERTA MEDIOS">Alerta medios</option>
+                            <option value="ALERTAS">Alertas</option>
+                            <option value="BROTE">Brote</option>
+                            <option value="BROTE ETA">Brote ETA</option>
+                            <option value="CASO">Caso</option>
+                            <option value="CONGLOMERADO">Conglomerado</option>
+                            <option value="FOCO">Foco</option>
+                            <option value="NOTICIA O RUMOR">Noticia o rumor</option>
+                            <option value="OTRO">Otro</option>
+                        </select>
+                    </div>     
+
+   
+                      <!--Evento-->  
+                    <div class="form-group">
+                        <label for="optEvento">Evento:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optEvento" name="optEvento">
+                            <option value="{{brote.evento}}">{{brote.evento}}</option>
+                            {% for evento in eventos %}
+                            <option value="{{evento.nombre_evento}}">{{evento.nombre_evento}}</option>
+                            {% endfor %}
+                        </select>
+                    </div> 
+
+                    <!--GRUPO FUNCIONAL-->
+                    <div class="form-group">
+                        <label for="optGrupoFuncional">Grupo Funcional:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optGrupoFuncional" name="optGrupoFuncional" value="{{brote.grupo_funcional}}">
+                            <option value={{brote.grupo_funcional}}>{{brote.grupo_funcional}}</option>
+                            <option value="LABORATORIO DE SALUD PUBLICA DEPARTAMENTAL">Laboratorio de salud pública departamental</option>
+                            <option value="PAI">Programa ampliado de inmunizaciones</option>
+                            <option value="PROGRAMA IRA">Programa IRA</option>
+                            <option value="PROGRAMA MATERNIDAD SEGURA">Programa Maternidad Segura</option>
+                            <option value="PROGRAMA SALUD AMBIENTAL">Programa Salud Ambiental</option>
+                            <option value="PROGRAMA VECTORES">Programa Vectores</option>
+                            <option value="PROGRAMA ZOONOSIS">Programa Zoonosis</option>
+                            <option value="VIGILANCIA EN SALUD PUBLICA">Vigilancia en salud pública</option>
+                        </select>
+                    </div>      
+
+                    <!--POBLACION AFECTADA-->
+                    <div class="form-group">
+                        <label for="optPoblacionAfectada">Población Afectada:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optPoblacionAfectada" name="optPoblacionAfectada" value="{{brote.poblacion_afectada}}">
+                            <option value={{brote.poblacion_afectada}}>{{brote.poblacion_afectada}}</option>
+                            <option value="CENTRO DE PROTECCION">Centro de protección</option>
+                            <option value="COMUNIDAD GENERAL">Comunidad en general</option>
+                            <option value="FM FUERZAS MILITARES">FM-Fuerzas Militares</option>
+                            <option value="IPS INSTITUCIONES PRESTADORAS DE SALUD">IPS-Instituciones Prestadoras de Salud</option>
+                            <option value="MIN POBLACION MINERA">MIN-Población Minera</option>
+                            <option value="PE POBLACION ESCOLARIZADA">PE-Población Escolarizada</option>
+                            <option value="PI POBLACION INDIGENA">PI- Polación Indigena</option>
+                            <option value="PM POBLACION MIGRANTE">PM-Población Migrante</option>
+                            <option value="PN POLICIA">PN-Policia</option>
+                            <option value="PPL POBLACION PRIVADA DE LA LIBERTAD">PPL- Población Privada de la libertad</option>
+                            <option value="OTROS">Otros</option>
+                        </select>
+                    </div>
+
+                    <!--CRITERIO DE RIESGO-->
+                    <div class="form-group">
+                        <label for="optCriterioRiesgo">Criterio de riesgo:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optCriterioRiesgo" name="optCriterioRiesgo" value="{{brote.criterio_riesgo}}">
+                            <option value={{brote.criterio_riesgo}}>{{brote.criterio_riesgo}}</option>
+                            <option value="GOBERNANZA">Gobernanza</option>
+                                <option value="POBLACION INTRAHOSPITALARIA">Población Intrahospitalaria</option>
+                                <option value="POBLACIONES ESPECIALES">Poblaciones especiales</option>
+                                <option value="REGLAMENTO SANITARIO INTERNACIONAL - EISP">Reglamento Sanitario Internacional - EISP</option>
+                                <option value="SITUACION CON AFECTACION AL PERSONAL SANITARIO">Situacion con afectación al personal sanitario</option>
+                                <option value="SITUACION CON MUERTES">Situacion con muertes</option>
+                                <option value="SITUACION CON RIESGO REPUTACIONAL">Situación con riesgo reputacional</option>
+                        </select>
+                    </div>
+                    
+                    <!--Informe IEC-->
+                    <div class="form-group">
+                        <label for="optInformeIec">Informe IEC:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optInformeIec" name="optInformeIec" value="{{brote.informe_iec}}">
+                            <option value={{brote.informe_iec}}>{{brote.informe_iec}}</option>
+                            <option value="SI">SI</option>
+                            <option value="NO">NO</option>
+                        </select>
+                    </div>
+
+                    <!--FECHA DE IEC-->
+                    <div class="form-group">
+                        <label for="txtFechaIec">Fecha de Notificación</label>
+                        <input type="date" id="txtFechaIec" name="txtFechaIec" value="{{brote.fecha_iec|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de IEC" required/>
+                    </div>
+
+                    <!--Numero de contactos-->
+                    <div class="form-group">
+                        <label for="txtNumeroContactos">Numero de contactos</label>
+                        <input type="number" id="txtNumeroContactos" name="txtNumeroContactos" value="{{brote.numero_de_contactos}}" class="form-control" 
+                        placeholder="Numero de contactos"  required/>
+                    </div>
+
+                    <!--Numero de enfermos-->
+                    <div class="form-group">
+                        <label for="txtNumeroEnfermos">Número de enfermos</label>
+                        <input type="number" id="txtNumeroEnfermos" name="txtNumeroEnfermos" value="{{brote.numero_de_enfermos}}" class="form-control" 
+                        placeholder="Numero de enfermos" required/>
+                    </div>
+
+                      <!--Numero de expuestos-->
+                      <div class="form-group">
+                        <label for="txtNumeroExpuestos">Numero de expuestos</label>
+                        <input type="number" id="txtNumeroExpuestos" name="txtNumeroExpuestos" value="{{brote.numero_de_expuestos}}" class="form-control" 
+                        placeholder="Numero de expuestos" required/>
+                    </div>
+
+
+                    <!--Tasa de Ataque-->
+                    <div class="form-group">
+                        <label for="txtTasaAtaque">Tasa de Ataque</label>
+                        <input type="number" id="txtTasaAtaque" name="txtTasaAtaque" value="{{brote.tasa_de_ataque}}" class="form-control" 
+                        placeholder="Tasa de ataque" readonly required/>
+                    </div>
+
+                  
+                    <!--Numero de fallecidos-->
+                    <div class="form-group">
+                        <label for="txtNumeroFallecidos">Numero de fallecidos</label>
+                        <input type="number" id="txtNumeroFallecidos" name="txtNumeroFallecidos" value="{{brote.numero_de_fallecidos}}" class="form-control" 
+                        placeholder="Numero de fallecidos" required/>
+                    </div>
+            
+                    <!--muestras-->
+                    <div class="form-group">
+                        <label for="optMuestras">Muestras:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optMuestras" name="optMuestras" value="{{brote.muestras}}">
+                            <option value={{brote.muestras}}>{{brote.muestras}}</option>
+                            <option value="SI">SI</option>
+                            <option value="NO">NO</option>
+                            <option value="NO APLICA">NO Aplica</option>
+                        </select>
+                    </div>
+                    
+                    <!--Numero de muestras-->
+                    <div class="form-group">
+                        <label for="txtNumeroMuestras">Numero de muestras</label>
+                        <input type="number" id="txtNumeroMuestras" name="txtNumeroMuestras" value="{{brote.numero_de_muestras}}" class="form-control" 
+                        placeholder="Numero de Muestras" required/>
+                    </div>
+
+                    <!--FECHA DE TOMA DE MUESTRAS-->
+                    <div class="form-group">
+                        <label for="txtFechaTomaMuestras">Fecha de Toma de muestras</label>
+                        <input type="date" id="txtFechaTomaMuestras" name="txtFechaTomaMuestras" value="{{brote.fecha_toma_de_muestras|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de Toma de Muestras" required/>
+                    </div>
+
+                    <!--FECHA DE ENVIO DE MUESTRAS-->
+                    <div class="form-group">
+                        <label for="txtFechaEnvioMuestras">Fecha de Envío de muestras</label>
+                        <input type="date" id="txtFechaEnvioMuestras" name="txtFechaEnvioMuestras" value="{{brote.fecha_envio_de_muestras|date:'Y-m-d'}}"class="form-control" 
+                        placeholder="Fecha de envio de muestras" required/>
+                    </div>
+
+                    <!--Tipo de muestras-->
+                    <div class="form-group">
+                        <label for="optTipoMuestra">Tipo de muestras:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optTipoMuestra" value="{{brote.tipo_de_muestra}}" name="optTipoMuestra">
+                            <option value={{brote.tipo_de_muestra}}>{{brote.tipo_de_muestra}}</option>
+                            <option value="ALIMENTOS">Alimentos</option>
+                            <option value="AMBIENTAL">Ambiental</option>
+                            <option value="ANIMAL">Animal</option>
+                            <option value="HUMANA">Humana</option>
+                            <option value="HUMANA_ALIMENTO">Humana-Alimento</option>
+                            <option value="HUMANA_AMBIENTAL">Humana-Ambiental</option>
+                            <option value="HUMANA_SUPERFICIE">Humana-Superficie</option>
+                            <option value="NO APLICA">No Aplica</option>
+                            <option value="SIN MUESTRA">Sin Muestra</option>
+                        </select>
+                    </div>
+
+
+                    <!--Decisión-->
+                    <div class="form-group">
+                        <label for="optDecision">Decisión:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optDecision" name="optDecision" value="{{brote.decision}}">
+                            <option value={{brote.decision}}>{{brote.decision}}</option>
+                            <option value="CERRADO SAR">Cerrado SAR</option>
+                            <option value="CERRADO SAR,CERRADO GGRRI, REFERENTE">Cerrado SAR, Cerrado GGRRI, Referente</option>
+                            <option value="SEGUIMIENTO GGRRI">Seguimiento GGRRI</option>
+                            <option value="SEGUIMIENTO REFERENTE">Seguimiento por el referente del evento</option>
+                            <option value="SEGUIMIENTO REFERENTE GGRRI">Seguimiento por el referente y GGRRI</option>
+                            <option value="SEGUIMIENTO SAR">Seguimiento SAR</option>
+                        </select>
+                    </div>
+
+                    <!--FECHA DE ENVIO AL INS-->
+                    <div class="form-group">
+                        <label for="txtFechaEnvioIns">Fecha de Envío de Al Ins</label>
+                        <input type="date" id="txtFechaEnvioIns" name="txtFechaEnvioIns" value="{{brote.fecha_envio_al_ins|date:'Y-m-d'}}"class="form-control" 
+                        placeholder="Fecha de envio de al INS" required/>
+                    </div>
+
+                    <!--Se realiza SAR-->
+                    <div class="form-group">
+                        <label for="optSeRealizaSar">Se realiza SAR:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optSeRealizaSar" name="optSeRealizaSar" value="{{brote.se_realiza_sar}}">
+                            <option value={{brote.se_realiza_sar}}>{{brote.se_realiza_sar}}</option>
+                            <option value="SAR DEPARTAMENTAL">SAR Departamental</option>
+                            <option value="SAR MUNICIPAL">SAR Municipal</option>
+                            <option value="SAR NACIONAL">SAR Nacional</option>
+                            <option value="NO">NO</option>
+                        </select>
+                    </div>
+
+                    <!--SITREP-->
+                    <div class="form-group">
+                        <label for="optSitrep">SITREP:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optSitrep" name="optSitrep" value="{{brote.sitrep}}">
+                            <option value={{brote.sitrep}}>{{brote.sitrep}}</option>
+                            <option value="SI">SI</option>
+                            <option value="NO">NO</option>
+                            <option value="NO APLICA">NO Aplica</option>
+                        </select>
+                    </div>
+
+                    <!--Estado-->
+                    <div class="form-group">
+                        <label for="optEstado">Estado:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optEstado" name="optEstado" value="{{brote.estado}}">
+                            <option value={{brote.estado}}>{{brote.estado}}</option>
+                            <option value="ABIERTO">Abierto</option>
+                            <option value="CERRADO">Cerrado</option>
+                        </select>
+                    </div>
+
+                    <!--FECHA DE CIERRE-->
+                    <div class="form-group">
+                        <label for="txtFechaCierre">Fecha de Cierre</label>
+                        <input type="date" id="txtFechaCierre" name="txtFechaCierre" value="{{brote.fecha_de_cierre|date:'Y-m-d'}}" class="form-control" 
+                        placeholder="Fecha de cierre" required/>
+                    </div>
+
+                    <!--CONCLUSION-->
+                    <div class="form-group">
+                        <label for="optConclusion">Conclusión:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optConclusion" value="{{brote.conclusion}}" name="optConclusion">
+                            <option value={{brote.conclusion}}>{{brote.conclusion}}</option>
+                            <option value="ESPII">ESPII</option>
+                            <option value="ESPIL">ESPIL</option>
+                            <option value="ESPIN">ESPIN</option>
+                            <option value="ESPIR">ESPIR</option>
+                            <option value="NINGUNA">NINGUNA</option>
+                        </select>
+                    </div>
+
+                    <!--Recomendacion-->
+                    <div class="form-group">
+                        <label for="optRecomendacion">Recomendación:</label>
+                        <select class="form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optRecomendacion" value="{{brote.recomendacion}}" name="optRecomendacion">
+                            <option value={{brote.recomendacion}}>{{brote.recomendacion}}</option>
+                            <option value="CIERRE">Cierre</option>
+                            <option value="REFERENTE">Referente</option>
+                            <option value="SAR">SAR</option>
+                            <option value="TRABAJO_CONJUNTO_CON_REFERENTE">Trabajo conjunto con referente</option>
+                        </select>
+                    </div>
+
+                    <!--SEGUIMIENTO-->
+                    <div class="form-group">
+                        <label for="txtSeguimiento">Seguimiento:</label>
+                        <textarea id="txtSeguimiento" name="txtSeguimiento" class="form-control" rows="4" cols="50"
+                        placeholder="Seguimiento" minlength="10" maxlength="200" required>{{brote.seguimiento}} 
+                        </textarea>
+                    </div>      
+                    <!--Boton de envio-->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">GUARDAR</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

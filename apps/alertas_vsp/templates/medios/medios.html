@@ -1,0 +1,51 @@
+{% extends "../plantilla_home.html" %}
+
+
+{% block body %}
+    <div class="row">
+        <!--AQUI COMIENZA-->
+
+     
+
+        <!--AQUI TERMINA-->   
+        <!--<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">-->
+     
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h3>MONITOREO DE MEDIOS 
+                <a href="crearMedio/" class="btn btn-info">Nueva Noticia</a>
+                <a href="{% url 'reporteMedios' %}" class="btn btn-success"> XLS</a>
+                
+            </h3>
+            
+            <div class="table-responsive py-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th id="txtprueba">EVENTO</th>
+                            <th>TITULO</th>
+                            <th>RESUMEN</th>
+                            <th>FUENTE</th>
+                            <th colspan="2">OPCIONES</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for medio in medios %}
+                            <tr>
+                                <td>{{medio.evento}}</td>
+                                <td>{{medio.titulo_noticia}}</td>
+                                <td>{{medio.resumen_noticia}}</td>
+                                <td>{{medio.fuente_notificacion}}</td>
+                                <td><a href="editarMedio/{{medio.id}}" class="btn btn-info">Editar</a></td>
+                                <td><a href="eliminarMedio/{{medio.id}}" class="btn btn-danger">Eliminar</a></td>
+                            </tr>                        
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock%}

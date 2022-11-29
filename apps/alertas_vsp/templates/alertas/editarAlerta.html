@@ -1,0 +1,191 @@
+{% extends "../plantilla_home.html" %}
+{% block title %} EDITAR ALERTA{% endblock %}
+{% block body %}
+<div class="row">
+   <!--<div class="col-md-4 offset-md-4">-->
+        <h3 class="col-md-4 offset-md-4 font-weight-bold">EDITAR ALERTA</h3> 
+        <form action="/edicionAlerta/{{alerta.id}}" method="POST">{% csrf_token %}
+        
+            <div class="card w-100 float-left mb-3 shadow">
+                <div class="card-body">
+                    
+                    <!--PROFESIONAL-->
+                    <div class="w-25 form-group float-left p-1 m-0">
+                        <label  for="txtProfesional">Profesional</label>
+                        <input type="text" id="txtProfesional" name="txtProfesional" class="form-control" 
+                        value="{{ user.first_name }} {{ user.last_name }}"placeholder="Profesional" minlength="10" maxlength="50" 
+                        readonly required/>
+                    </div>
+
+                    <!--AÑO-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="txtYear">Año:</label>
+                        <input type="text" id="txtYear" onChange="" name="txtYear"  class="form-control"
+                        value="{{ alerta.year }}" 
+                        placeholder="Año" required/>
+                    </div>
+                     <!--Departamento de ocurrencia-->
+                    <div class="w-25 form-group float-left p-1">
+                    <label  for="optDeptoOcurrencia">Departamento de Ocurrencia:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optDeptoOcurrencia" name="optDeptoOcurrencia">
+                        <option value={{alerta.depto_ocurrencia}}>{{alerta.depto_ocurrencia}}</option>
+                        <option value="SUCRE">SUCRE</option>
+                        <option value="CORDOBA">CORDOBA</option>
+                        <option value="BOLIVAR">BOLIVAR</option>
+                    </select>
+                    </div> 
+                    
+                    <!--Evento-->  
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="optEvento">Evento:</label>
+                        <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optEvento" name="optEvento">
+                            <option value="{{alerta.evento}}">{{alerta.evento}}</option>
+                            {% for evento in eventos %}
+                            <option value="{{evento.nombre_evento}}">{{evento.nombre_evento}}</option>
+                            {% endfor %}
+                        </select>
+                    </div> 
+
+                    <!--FECHA DE INGRESO-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="txtFechaIngreso">Fecha de Ingreso</label>
+                        <input type="date" id="txtFechaIngreso" onChange="calcularSemana(this);" 
+                        name="txtFechaIngreso"  class="form-control" 
+                        value="{{ alerta.fecha_ingreso|date:'Y-m-d' }}" placeholder="Fecha de Ingreso" readonly required/>
+                    </div>
+
+                    <!--FUENTE-->
+                    <div class="w-25 form-group float-left p-1">
+                        <label  for="optFuenteNotificacion">Fuente:</label>
+                        <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optFuenteNotificacion" name="optFuenteNotificacion">
+                            <option value={{alerta.fuente_notificacion}}>{{alerta.fuente_notificacion}}</option>
+                            <option value="CENTRO NACIONAL DE ENLACE">Centro nacional de enlace</option>
+                            <option value="COMUNIDAD">Comunidad</option>
+                            <option value="EXTERNAS AL PROGRAMA DE VIGILANCIA">Externas al programa de vigilancia</option>
+                            <option value="EXTERNAS A SALUD PUBLICA">Externa a salud pública</option>
+                            <option value="INSTITUTO NACIONAL DE SALUD">Instituto nacional de salud</option>
+                            <option value="LABORATORIO DE SALUD PUBLICA DEPARTAMENTAL">Laboratorio de salud pública departamental</option>
+                            <option value="MONITOREO DE MEDIOS">Monitoreo de medios</option>
+                            <option value="SECRETARIA DE SALUD MUNICIPAL">Secretaria de salud municipal</option>
+                            <option value="SIVIGILA">Sivigila</option>
+                        </select>
+                    </div> 
+
+                    <!--Municipio de ocurrencia-->
+                   <div class="w-25 form-group float-left p-1">
+                    <label  for="optMunOcurrencia">Municipio de Ocurrencia:</label>
+                    <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optMunOcurrencia" name="optMunOcurrencia">
+                        <option value={{alerta.mun_ocurrencia}}>{{alerta.mun_ocurrencia}}</option>
+                        <option value="BUENAVISTA">BUENAVISTA</option>
+                        <option value="BETULIA">BETULIA</option>
+                        <option value="CAIMITO">CAIMITO</option>
+                        <option value="CHALAN">CHALAN</option>
+                        <option value="COLOSO">COLOSO</option>
+                        <option value="COROZAL">COROZAL</option>
+                        <option value="COVEÑAS">COVEÑAS</option>
+                        <option value="EL ROBLE">EL ROBLE</option>
+                        <option value="GALERAS">GALERAS</option>
+                        <option value="GUARANDA">GUARANDA</option>
+                        <option value="LA UNION">LA UNION</option>
+                        <option value="LOS PALMITOS">LOS PALMITOS</option>
+                        <option value="MAJAGUAL">MAJAGUAL</option>
+                        <option value="MORROA">MORROA</option>
+                        <option value="OVEJAS">OVEJAS</option>
+                        <option value="PALMITO">PALMITO</option>
+                        <option value="SAMPUES">SAMPUES</option>
+                        <option value="SAN BENITO ABAD">SAN BENITO ABAD</option>
+                        <option value="SAN MARCOS">SAN MARCOS</option>
+                        <option value="SAN ONOFRE">SAN ONOFRE</option>
+                        <option value="SAN PEDRO">SAN PEDRO</option>
+                        <option value="SINCE">SINCE</option>
+                        <option value="SINCELEJO">SINCELEJO</option>
+                        <option value="SUCRE">SUCRE</option>
+                        <option value="TOLU">TOLU</option>
+                        <option value="TOLUVIEJO">TOLUVIEJO</option>
+                    </select>
+                </div>
+                <!--NUMERO-->
+                <div class="w-25 form-group float-left p-1">
+                    <label  for="txtNumero">Número</label>
+                    <input type="text" id="txtNumero" onChange="" name="txtNumero"  class="form-control" 
+                    value="{{alerta.numero}}"
+                    placeholder="Número" required/>
+                </div>
+                <!--NUMERO SITUACIONES-->
+                <div class="w-25 form-group float-left p-1">
+                    <label  for="txtNumeroSituaciones">Numero de situaciones</label>
+                    <input type="text" id="txtNumeroSituaciones" onChange="" name="txtNumeroSituaciones"  class="form-control" 
+                    value="{{alerta.numero_situaciones}}"
+                    placeholder="Numero de situaciones" required/>
+                </div>
+
+                <!--REFERENCIA-->
+                <div class="w-25 form-group float-left p-1 m-0">
+                    <label  for="txtReferencia">Referencia</label>
+                    <input type="text" id="txtReferencia" name="txtReferencia" class="form-control" 
+                    placeholder="Referencia" minlength="10" maxlength="50" 
+                    value="{{alerta.referencia}}"
+                    required/>
+                </div>
+                    
+            </div>
+        </div>
+
+
+        <h6>SEGUIMIENTO</h6>
+        <div class="card w-100 float-left mb-3 shadow">
+            <div class="card-body"> 
+                 <!--SEGUIMIENTO-->
+                 <div class="w-100 form-group float-left">
+                    <label  for="txtSeguimiento">Seguimiento:</label>
+                    <textarea id="txtSeguimiento" name="txtSeguimiento" class="form-control" rows="4" cols="50"
+                    placeholder="Seguimiento" minlength="10" maxlength="200" resize-none required>{{alerta.seguimiento}}
+                    </textarea>
+                </div>                   
+            </div>
+        </div>
+
+         <!--SITUACION REPORTADA-->
+         <div class="w-25 form-group float-left p-1">
+            <label  for="optSituacionReportada">Situación reportada:</label>
+            <select class="form-control form-select col-sm-12 col-md-6 col-lg-12 col-xl-12" id="optSituacionReportada" name="optSituacionReportada">
+                <option value={{alerta.situacion_reportada}}>{{alerta.situacion_reportada}}</option>
+                <option value="ALERTA MEDIOS">Alerta medios</option>
+                <option value="ALERTAS">Alertas</option>
+                <option value="BROTE">Brote</option>
+                <option value="BROTE ETA">Brote ETA</option>
+                <option value="CASO">Caso</option>
+                <option value="CONGLOMERADO">Conglomerado</option>
+                <option value="FOCO">Foco</option>
+                <option value="NOTICIA O RUMOR">Noticia o rumor</option>
+                <option value="OTRO">Otro</option>
+            </select>
+        </div> 
+
+        <!--URL-->
+        <div class="w-75 form-group float-left p-1">
+            <label  for="txtUrl">URL</label>
+            <input type="text" id="txtUrl" name="txtUrl" class="form-control" 
+            value="{{alerta.url}}"
+            placeholder="URL" minlength="10" maxlength="100" required/>
+        </div> 
+
+        <!--Archivos Adjuntos-->
+        <div class="w-75 form-group float-left p-1">
+            <label  for="fileAlerta">Archivos Adjuntos</label>
+            <input type="text" id="fileAlerta" name="fileAlerta" class="form-control" 
+            value="{{alerta.archivos_adjuntos}}"
+            placeholder="Archivos Adjuntos" minlength="10" maxlength="100" required/>
+        </div> 
+
+                          
+                 
+            <!--Boton de envio-->
+            <div class="col-md-4 offset-md-4 w-25 form-group text-center">
+                <button type="submit" class="btn btn-success btn-block text-white">GUARDAR</button>
+            </div>         
+        </form>
+    <!--</div>-->         
+</div>
+
+{% endblock %}
